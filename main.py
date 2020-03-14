@@ -21,8 +21,8 @@ def primeGen():
   primes = []
   nextprime = 3 # The smallest odd prime number
   while True:
-    primes.append(nextprime)
     yield nextprime
+    primes.append(nextprime)
     while True:
       nextprime += 2 # All other prime numbers are odd, even numbers need not be tested
       remainders = map(lambda x: nextprime%x, primes)
