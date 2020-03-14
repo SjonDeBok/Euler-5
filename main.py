@@ -1,37 +1,25 @@
-def isPrime(num):
-  """ 
-  Determines wheter num is a prime number
-  Returns: bool
+def primeGen():
   """
-  if num < 2:
-    return False
-  i = num-1
-  while i > 1:
-    if num%i == 0:
-      return False
-    else:
-      i -= 1
-  return True
-
-
-def allPrimesUpTo(limit):
+  Generator of prime numbers
+  Returns: int
   """
-  Collects all prime numbers up to limit value
-  Returns: list
-  """
+  yield 2
   primes = []
-  i = limit
-  while i > 1:
-    if isPrime(i):
-      primes.append(i)
-    i -= 1
-  return primes
+  nextprime = 3
+  while True:
+    primes.append(nextprime)
+    yield nextprime
+    while True:
+      nextprime += 2
+      remainders = map(lambda x: nextprime%x, primes)
+      if not 0 in remainders: 
+        break
 
 
 def highestPowerUpTo(num, limit):
   """
   Calculates the highest power of num up to the limit value
-  e.g. if num = 2 and limit = 20: powered = 2^4 = 16 as the highest power of 2 up to 20 
+  e.g. if num = 2 and limit = 20: it calculates 2^4 = 16 as the highest power of 2 up to 20 
   Returns: int
   """
   powered = num
@@ -41,10 +29,12 @@ def highestPowerUpTo(num, limit):
 
 
 limit = 20
-primes = allPrimesUpTo(limit)
+prime = primeGen()
 powers = []
-for num in primes:
+num = next(prime) 
+while num <= limit:
   powers.append(highestPowerUpTo(num, limit))
+  num = next(prime) 
 result = 1
 for num in powers:
   result *= num
