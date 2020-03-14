@@ -27,6 +27,7 @@ def allPrimesUpTo(limit):
     i -= 1
   return primes
 
+
 def highestPowerUpTo(num, limit):
   """
   Calculates the highest power of num up to the limit value
@@ -37,6 +38,7 @@ def highestPowerUpTo(num, limit):
   while powered <= limit:
     powered *= num
   return int(powered/num)
+
 
 limit = 20
 primes = allPrimesUpTo(limit)
