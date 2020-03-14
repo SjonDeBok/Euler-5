@@ -1,37 +1,39 @@
-def isPrime(num):
-  """ 
-  Determines wheter num is a prime number
-  Returns: bool
+def euler_five(limit=20):
   """
-  if num < 2:
-    return False
-  i = num-1
-  while i > 1:
-    if num%i == 0:
-      return False
-    else:
-      i -= 1
-  return True
+  Calculates the smallest positive number that is evenly divisible by all of the numbers from 1 to limit value.
+  Returns: int
+  """
+  prime = primeGen()
+  num = next(prime) 
+  result = 1
+  while num <= limit:
+    result *= highestPowerUpTo(num, limit)
+    num = next(prime)
+  return result
 
 
-def allPrimesUpTo(limit):
+def primeGen():
   """
-  Collects all prime numbers up to limit value
-  Returns: list
+  Generator of prime numbers
+  Returns: int
   """
+  yield 2 # The smallest prime number
   primes = []
-  i = limit
-  while i > 1:
-    if isPrime(i):
-      primes.append(i)
-    i -= 1
-  return primes
+  nextprime = 3 # The smallest odd prime number
+  while True:
+    primes.append(nextprime)
+    yield nextprime
+    while True:
+      nextprime += 2 # All other prime numbers are odd, even numbers need not be tested
+      remainders = map(lambda x: nextprime%x, primes)
+      if not 0 in remainders: 
+        break
 
 
 def highestPowerUpTo(num, limit):
   """
   Calculates the highest power of num up to the limit value
-  e.g. if num = 2 and limit = 20: powered = 2^4 = 16 as the highest power of 2 up to 20 
+  e.g. if num = 2 and limit = 20: it calculates 2**4 = 16 as the highest power of 2 up to 20 
   Returns: int
   """
   powered = num
@@ -40,12 +42,4 @@ def highestPowerUpTo(num, limit):
   return int(powered/num)
 
 
-limit = 20
-primes = allPrimesUpTo(limit)
-powers = []
-for num in primes:
-  powers.append(highestPowerUpTo(num, limit))
-result = 1
-for num in powers:
-  result *= num
-print(result)
+print(euler_five())
