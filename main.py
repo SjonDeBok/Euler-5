@@ -25,7 +25,7 @@ def primeGen():
     primes.append(nextprime)
     while True:
       nextprime += 2 # All other prime numbers are odd, even numbers need not be tested
-      remainders = map(lambda x: nextprime%x, primes)
+      remainders = [nextprime%x for x in primes]
       if not 0 in remainders: 
         break
 
@@ -37,9 +37,8 @@ def highestPowerUpTo(num, limit):
   Returns: int
   """
   powered = num
-  while powered <= limit:
-    powered *= num
-  return int(powered/num)
+  while powered <= limit: powered *= num
+  return powered//num # num is multiplied one time too many, so divide again
 
 
 print(euler_five())
