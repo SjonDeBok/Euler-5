@@ -26,8 +26,7 @@ def primeGen():
     while True:
       nextprime += 2 # All other prime numbers are odd, even numbers need not be tested
       remainders = [nextprime%x for x in primes]
-      if not 0 in remainders: 
-        break
+      if not 0 in remainders: break
 
 
 def highestPowerUpTo(num, limit):
